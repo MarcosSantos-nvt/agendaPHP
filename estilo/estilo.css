@@ -1,0 +1,71 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    font-family: Arial;
+}
+
+label, input {
+    display: block;
+    line-height: 30px;
+    height: 30px;
+    font-size: 14pt;
+    width: 100%;
+}
+
+form {
+    width: 330px;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 30px auto;
+}
+
+input[type="submit"]{
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#formulario{
+    width: 40%;
+    
+    float: left;
+    height: 500px;
+}
+
+#consulta{
+    width: 60%;
+    
+    float: left;
+    height: 500px;
+}
+
+table {
+    width: 95%;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 30px auto;
+}
+
+tr {
+    line-height: 30px;
+}
+
+tr#titulo {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: seashell;
+    font-weight: bold;
+}
+
+td {
+    padding: 0px, 5px;
+}
+
+a {
+    padding: 5px;
+    background-color: white;
+    color: black;
+    margin: 0px 5px;
+    text-decoration: none;
+}
+
+h2{
+    text-align: center;
+}
