@@ -1,3 +1,8 @@
+
+<?php
+    require_once ('Dao.php');
+    $consulta = new Dao("root", "");
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -26,19 +31,34 @@
             <input type="submit" id="btncadastrar" name="btncadastrar" value="Cadastrar">
         </form>
     </section>
-    <section id="consulta">
+    <section id="consulta">    
         <table>
             <tr id="titulo">
                 <td>NOME:</td>
                 <td>TELEFONE:</td>
                 <td colspan="2">E-MAIL:</td>
             </tr>
-            <tr>
-                <td>Marcos</td>
-                <td>(47)99999-9999</td>
-                <td>marcos@gmail.com</td>
-                <td><a href="">ALTERAR</a><a href="">EXCLUIR</a></td>
-            </tr>
+            <?php
+                $dados = $consulta->selectAll();
+
+                if (count($dados) > 0){
+                    for ($i=0; $i < count($dados) ; $i++) { 
+                        echo"<tr>";
+                        foreach ($dados[$i] as $key => $value) {
+                            if($key!="ID"){
+                                echo"<td>".$value."</td>";
+                            }
+                        }
+                        ?>
+                        <td><a href="">ALTERAR</a><a href="">EXCLUIR</a></td>
+                        <?php
+                        echo"</tr>";
+                    }
+                   
+                    
+                }
+            ?>
+            
         </table>
     </section>
 </body>
