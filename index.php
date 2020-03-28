@@ -39,6 +39,7 @@
                 <td colspan="2">E-MAIL:</td>
             </tr>
             <?php
+            
                 $dados = $consulta->selectAll();
 
                 if (count($dados) > 0){
@@ -53,10 +54,10 @@
                         <td><a href="">ALTERAR</a><a href="">EXCLUIR</a></td>
                         <?php
                         echo"</tr>";
-                    }
-                   
+                    }                   
                     
                 }
+
             ?>
             
         </table>
