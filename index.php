@@ -1,7 +1,7 @@
 
 <?php
     require_once ('Dao.php');
-    $consulta = new Dao("root", "");
+    $consulta = new Dao();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
