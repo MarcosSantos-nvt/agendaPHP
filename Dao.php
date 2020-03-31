@@ -37,6 +37,32 @@
                 echo $e->getMessage();
             }
         }
+
+        public function insertCliente($nome, $endereco, $cpf){
+
+            $consulta = $this->pdo->prepare("SELECT * FROM cliente WHERE CPF = :cpf;");
+            $consulta->bindValue(":cpf", $cpf);
+            $consulta->execute();
+
+            if($consulta->rowCount()>0){
+                return false;
+            }
+            else{
+                $con = $this->pdo->prepare("INSERT INTO cliente(NOME, ENDERECO, CPF) VALUES (:nome, :endereco, :cpf)");
+                $con->bindValue(":nome", $nome);
+                $con->bindValue(":endereco", $endereco);
+                $con->bindValue(":cpf", $cpf);
+                $con->execute();
+                return true;
+            }
+        }
+
+        public function deleteCliente($id){
+
+            $cmd = $this->pdo->prepare("DELETE FROM cliente WHERE ID = :id;");
+            $cmd->bindValue(":id", $id);
+            $cmd->execute();
+        }
     }
    
 ?>

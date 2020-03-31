@@ -13,20 +13,36 @@
     <title>Agenda</title>
 </head>
 <body>
+    <?php
+        
+        if(isset ($_POST['nome'])){
+            $nome = $_POST['nome'];
+            $endereco = $_POST['endereco'];
+            $cpf = $_POST['cpf'];
+
+            if(!empty($nome) && !empty($endereco) && !empty($cpf)){
+                if(!$consulta->insertCliente($nome,$endereco,$cpf)){
+                    echo"CPF JÁ CADASTRADO NESTA BASE DE DADOS";
+                }
+            } else{
+                echo"FAVOR PREENCHER TODOS OS DADOS PARA CADASTRAR AS INFORMAÇÕES";
+            }
+        } 
+    ?>
     <section id="formulario">
-        <form>
+        <form method="POST" action="">
             <h2>CADASTRAR:</h2>
             <div>
                 <label for="nome" id="nome">Nome: </label>
                 <input type="text" name="nome" id="nome">
             </div>
             <div>
-                <label for="telefone" id="telefone">Telefone: </label>
-                <input type="text" id="telefone" name="telefone" placeholder="(99)99999-9999">
+                <label for="endereco" id="endereco">Endereço: </label>
+                <input type="text" id="endereco" name="endereco">
             </div>
             <div>
-                <label for="email" id="email">e-mail: </label>
-                <input type="email" id="email" name="email">
+                <label for="cpf" id="cpf">CPF: </label>
+                <input type="text" id="cpf" name="cpf">
             </div>
             <input type="submit" id="btncadastrar" name="btncadastrar" value="Cadastrar">
         </form>
@@ -35,8 +51,8 @@
         <table>
             <tr id="titulo">
                 <td>NOME:</td>
-                <td>TELEFONE:</td>
-                <td colspan="2">E-MAIL:</td>
+                <td>ENDEREÇO:</td>
+                <td colspan="2">CPF:</td>
             </tr>
             <?php
             
@@ -50,12 +66,18 @@
                                 echo"<td>".$value."</td>";
                             }
                         }
-                        ?>
-                        <td><a href="">ALTERAR</a><a href="">EXCLUIR</a></td>
-                        <?php
+            ?>
+                        <td>
+                            <?php echo $dados[$i]['ID'];?>
+                            <a href="">ALTERAR</a>
+                            <a href="index.php?ID=<?php echo $dados[$i]['ID'];?>">EXCLUIR</a>
+                        </td>
+            <?php
                         echo"</tr>";
                     }                   
                     
+                } else{
+                    echo"NÃO EXISTE DADOS CADASTRADOS NO BANCO DE DADOS";
                 }
 
             ?>
@@ -65,3 +87,11 @@
 </body>
 
 </html>
+
+<?php
+    if(isset($_GET['ID'])){
+        $id_cliente = addslashes($_GET['ID']);
+        $consulta->deleteCliente($id_cliente);
+        header("location: index.php");
+    }
+?>
