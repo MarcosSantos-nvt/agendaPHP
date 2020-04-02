@@ -63,6 +63,21 @@
             $cmd->bindValue(":id", $id);
             $cmd->execute();
         }
+
+        public function selectDadoCliente($id_up){
+
+            $res = array();
+            $cmd = $this->pdo->prepare("SELECT * FROM cliente WHERE ID= :id;");
+            $cmd->bindValue(":id",$id_up);
+            $cmd->execute();
+            $res = $cmd->fetch(PDO::FETCH_ASSOC);
+            return $res;                            
+        }
+
+        public function updateCliente($id){
+
+            
+        }
     }
    
 ?>

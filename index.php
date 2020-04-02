@@ -29,22 +29,31 @@
             }
         } 
     ?>
+
+    <?php
+        if (isset($_GET['id_up'])){
+
+            $id_update = addslashes($_GET['id_up']);
+            $res = $consulta->selectDadoCliente($id_update);            
+        }
+    ?>
     <section id="formulario">
         <form method="POST" action="">
             <h2>CADASTRAR:</h2>
             <div>
                 <label for="nome" id="nome">Nome: </label>
-                <input type="text" name="nome" id="nome">
+                <input type="text" name="nome" id="nome" value="<?php if(isset($res)){echo $res['NOME'];}?>">
             </div>
             <div>
                 <label for="endereco" id="endereco">Endereço: </label>
-                <input type="text" id="endereco" name="endereco">
+                <input type="text" id="endereco" name="endereco"value="<?php if(isset($res)){echo $res['ENDERECO'];}?>">
             </div>
             <div>
                 <label for="cpf" id="cpf">CPF: </label>
-                <input type="text" id="cpf" name="cpf">
+                <input type="text" id="cpf" name="cpf"value="<?php if(isset($res)){echo $res['CPF'];}?>">
             </div>
-            <input type="submit" id="btncadastrar" name="btncadastrar" value="Cadastrar">
+            <input type="submit" id="btncadastrar" name="btncadastrar" value="<?php if(isset($res)){echo'ATUALIZAR';} 
+            else{ echo 'CADASTRAR';} ?>">
         </form>
     </section>
     <section id="consulta">    
@@ -69,7 +78,7 @@
             ?>
                         <td>
                             <?php echo $dados[$i]['ID'];?>
-                            <a href="">ALTERAR</a>
+                            <a href="index.php?id_up=<?php echo $dados[$i]['ID'];?>">ALTERAR</a>
                             <a href="index.php?ID=<?php echo $dados[$i]['ID'];?>">EXCLUIR</a>
                         </td>
             <?php
