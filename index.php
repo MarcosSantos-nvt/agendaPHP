@@ -13,20 +13,56 @@
     <title>Agenda</title>
 </head>
 <body>
-    <?php
+    <?php       
         
-        if(isset ($_POST['nome'])){
-            $nome = $_POST['nome'];
-            $endereco = $_POST['endereco'];
-            $cpf = $_POST['cpf'];
-
-            if(!empty($nome) && !empty($endereco) && !empty($cpf)){
-                if(!$consulta->insertCliente($nome,$endereco,$cpf)){
-                    echo"CPF JÁ CADASTRADO NESTA BASE DE DADOS";
-                }
-            } else{
-                echo"FAVOR PREENCHER TODOS OS DADOS PARA CADASTRAR AS INFORMAÇÕES";
+        if(isset ($_POST['nome']))        
+        //SELEÇÃO CADASTRAR OU EDITAR 
+        {           
+                        
+            if (isset($_GET['id_up']) && !empty($_GET['id_up'])) {
+                
+                $id_upda = addslashes($_GET['id_up']);
+                $nome = $_POST['nome'];
+                $endereco = $_POST['endereco'];
+                $cpf = $_POST['cpf'];
+                if(!empty($nome) && !empty($endereco) && !empty($cpf)){
+                   
+                    $consulta->updateCliente($id_upda, $nome, $endereco, $cpf);
+                    header('location:index.php');
+                } 
+                
+                
             }
+
+            else
+            //------------------------cadastrar------------------
+            {
+
+                $nome = $_POST['nome'];
+                $endereco = $_POST['endereco'];
+                $cpf = $_POST['cpf'];
+                
+                if(!empty($nome) && !empty($endereco) && !empty($cpf)){
+                   
+                    if(!$consulta->insertCliente($nome,$endereco,$cpf)){
+                        ?>
+                        <div class="aviso">
+                            <h3>CPF JÁ CADASTRADO NESTA BASE!</h3>
+                        </div>
+                    <?php
+                    }
+                } 
+                else
+                    {
+                        ?>
+                        <div class="aviso">
+                            <h3>FAVOR PREENCHER TODOS OS DADOS PARA EXECUTAR O CADASTRO!</h3>
+                        </div>
+                    <?php
+                    }
+
+                }
+            
         } 
     ?>
 
@@ -38,7 +74,7 @@
         }
     ?>
     <section id="formulario">
-        <form method="POST" action="">
+        <form method="POST">
             <h2>CADASTRAR:</h2>
             <div>
                 <label for="nome" id="nome">Nome: </label>
@@ -76,8 +112,7 @@
                             }
                         }
             ?>
-                        <td>
-                            <?php echo $dados[$i]['ID'];?>
+                        <td>                            
                             <a href="index.php?id_up=<?php echo $dados[$i]['ID'];?>">ALTERAR</a>
                             <a href="index.php?ID=<?php echo $dados[$i]['ID'];?>">EXCLUIR</a>
                         </td>
@@ -86,7 +121,12 @@
                     }                   
                     
                 } else{
-                    echo"NÃO EXISTE DADOS CADASTRADOS NO BANCO DE DADOS";
+
+                    ?>
+                        <div class="aviso">
+                            <h3>NÃO EXISTEM DADOS CADASTRADOS!</h3>
+                        </div>
+                    <?php
                 }
 
             ?>

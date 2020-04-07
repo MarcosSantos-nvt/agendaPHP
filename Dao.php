@@ -74,9 +74,15 @@
             return $res;                            
         }
 
-        public function updateCliente($id){
+        public function updateCliente($id, $nome, $endereco, $cpf){
 
+            $cmd = $this->pdo->prepare("UPDATE cliente SET NOME=:nome, ENDERECO=:endereco, CPF=:cpf WHERE ID=:id;");
             
+            $cmd->bindValue(":nome", $nome);
+            $cmd->bindValue(":endereco", $endereco);
+            $cmd->bindValue(":cpf", $cpf);
+            $cmd->bindValue(":id", $id);
+            $cmd->execute();           
         }
     }
    
